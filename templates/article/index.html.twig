@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% set article = entity %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="article-title">{{ article.title }}</h1>
+
+        <hr>
+
+        {{ article.content|raw }}
+
+        <h2 class="comments-title mt-5"><span id="comment-count">{{ numberOfComments}}</span> commentaire(s)</h2>
+
+        <hr>
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% include 'comment/form_add.html.twig' %}
+            <hr>
+        {% endif %}
+
+        <div class="comment-list mt-5" id="comments">
+            {% for comment in comments %}
+                {% include 'comment/index.html.twig' with [comment] %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

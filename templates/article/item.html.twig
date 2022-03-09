@@ -1,0 +1,23 @@
+<article class="mb-5">
+    <div class="row">
+        <div class="col-xl-{{ leftCol }}">
+            {% if article.featuredImage %}
+                <a href="{{ path('article_show', { 'slug': article.slug }) }}">
+                    <img src="/uploads/{{ article.featuredImage.filename }}" alt="{{ article.featuredImage.altText }}" loading="lazy" width="350" height="205" >
+                </a>
+            {% endif %}
+        </div>
+        <div class="col-xl-{{ rightCol }}">
+            <h2 class="article-title">
+                <a href="{{ path('article_show', { 'slug': article.slug }) }}" class="text-decoration-none">{{ article.title }}</a>
+            </h2>
+            <p>
+                {{ article.createdAt|date('d M Y') }} / <b>{{ article.categories|categoriesToString|raw }}</b>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    / <a class="text-decoration-none" href="{{ path('article_show', { 'slug': article.slug }) }}#comments">Laisser un commentaire</a>
+                {% endif %}
+            </p>
+            {{ article.featuredText ?: article.content|striptags|slice(0, 130) ~ '...' }}
+        </div>
+    </div>
+</article>

@@ -1,5 +1,9 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    form_themes: ['bootstrap_5_layout.html.twig']
+    globals:
+        menu_service: '@App\Service\MenuService'
+        option_service: '@App\Service\OptionService'
 
 when@test:
     twig:

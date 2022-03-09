@@ -1,0 +1,187 @@
+html, body {
+  height: 100vh;
+  margin: 0;
+}
+
+body {
+  background-color: var(--body-bg);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--link-color);
+}
+
+.article-title > a.text-decoration-none {
+  color: var(--text-color);
+}
+
+.btn-primary, .btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled):focus,
+.btn-primary:not(:disabled):not(.disabled):hover {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-color);
+}
+
+.comment-author {
+  color: var( --comment-author-color);
+}
+
+.comment-content {
+  background: var(--form-control-bg);
+}
+
+.dropdown-appearance {
+  .dropdown-appearance-button {
+    color: var(--dropdown-appearance-icon-color);
+    font-size: 16px;
+    padding: 0 0 0 15px;
+  }
+
+  .dropdown-appearance-label {
+    color: var(--text-muted);
+    display: block;
+    font-size: var(--font-size-sm);
+    margin: 4px 4px 6px 4px;
+  }
+
+  .dropdown-item.active {
+    background: var(--dropdown-appearance-active-item-bg);
+    color: var(--dropdown-appearance-active-item-color);
+
+    i {
+      color: var(--dropdown-appearance-active-item-color);
+    }
+  }
+}
+
+.dropdown-menu {
+  background-color: var(--dropdown-bg);
+  border-color: var(--dropdown-border-color);
+  box-shadow: var(--shadow-lg);
+  color: var(--dropdown-color);
+  padding: 5px;
+
+  li {
+    border-radius: var(--border-radius);
+  }
+  a, a:hover, a:active {
+    border-radius: var(--border-radius);
+    color: var(--dropdown-link-color);
+  }
+  a:hover {
+    background: var(--dropdown-link-hover-bg);
+  }
+  i {
+    color: var(--dropdown-icon-color);
+    font-size: var(--font-size-lg);
+    margin-right: 10px;
+    margin-top: 3px;
+    vertical-align: middle;
+    height: 16px;
+    width: 20px;
+  }
+
+  .dropdown-item, .dropdown-header {
+    align-items: flex-start;
+    display: flex;
+    padding: 4px 5px;
+  }
+  .dropdown-divider {
+    background: transparent;
+    border-top-color: var(--dropdown-border-color);
+    opacity: 1;
+  }
+  .dropdown-item-color-scheme {
+    color: var(--dropdown-color);
+
+    &:hover { background: transparent; }
+    label { align-items: center; display: flex; }
+    i { margin-top: 0; }
+    select {
+      background: var(--dropdown-bg);
+      border: 1px solid var(--dropdown-border-color);
+      border-radius: var(--border-radius);
+      color: var(--dropdown-color);
+      margin-left: 10px;
+      outline: none;
+      padding: 0 4px;
+    }
+  }
+}
+
+.dropdown > a.nav-link {
+  color: var(--text-color);
+}
+
+.header-title {
+  color: var(--text-color);
+}
+
+input.form-control,
+textarea.form-control{
+  background: var(--form-control-bg);
+  border: 1px solid var(--form-input-border-color);
+  box-shadow: var(--form-input-shadow);
+  color: var(--form-input-text-color);
+  padding: 3px 7px 4px;
+  white-space: nowrap;
+  word-break: keep-all;
+  transition: box-shadow .08s ease-in, color .08s ease-in;
+}
+
+.form-control:focus {
+  color: var(--text-color);
+  background-color: var(--form-control-bg);
+}
+
+.nav-link.active > .menu-label {
+  font-weight: 500;
+}
+
+.nav-item > a.nav-link:not(.nav-link-admin) {
+  color: var(--text-color);
+}
+
+.nav-link.active {
+  color: var(--menu-active-item-color) !important;
+  background-color: var(--menu-active-item-bg) !important;
+}
+
+.page-item.active,
+.page-item.active .page-link:hover,
+.page-link {
+  background: var(--pagination-active-bg);
+  border-color: var(--pagination-active-bg);
+  color: var(--pagination-active-color);
+}
+
+.page-item.disabled .page-link {
+  background: transparent;
+  border: var(--border-width) var(--border-style) transparent;
+  color: var(--pagination-disabled-color);
+}
+
+.page-item .page-link,
+.page-item .page-link:focus,
+.page-item .page-link:hover {
+  background: transparent;
+  border: var(--border-width) var(--border-style) transparent;
+  border-radius: var(--border-radius);
+  color: inherit;
+  margin: 0 1px;
+}
+
+.page-item .page-link:focus,
+.page-item .page-link:hover {
+  border-color: var(--pagination-hover-border-color);
+}
+
+pre {
+  border-radius: var(--border-radius);
+  color: crimson;
+  background-color: #f1f1f1;
+  padding: 4px;
+  font-size: 105%;
+}

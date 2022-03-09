@@ -1,0 +1,398 @@
+input[disabled] {
+  cursor: not-allowed;
+}
+
+.form-inline {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+// Base form groups
+.form-group {
+  padding: 12px 0;
+}
+
+.form-group label,
+.form-group legend.col-form-label {
+  color: var(--form-label-color);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  margin: 0;
+  padding: 0 0 8px 0;
+}
+
+.form-check .form-check-input {
+  background: unset;
+  border-color: var(--form-type-check-input-border-color);
+  height: 15px;
+  width: 15px;
+}
+// Used in checkbox and radio buttons
+label.form-check-label {
+  cursor: pointer;
+  font-weight: normal;
+}
+.form-group label.form-check-label.required:after {
+  display: none;
+}
+.form-check + .form-check {
+  margin-top: 5px;
+}
+
+.form-group label.required:after,
+.form-group .col-form-label.required:after {
+  background: var(--color-danger);
+  border-radius: 50%;
+  content: '';
+  display: inline-block;
+  filter: opacity(75%);
+  position: relative;
+  right: -2px;
+  top: -8px;
+  z-index: var(--zindex-700);
+  height: 4px;
+  width: 4px;
+}
+
+.form-help {
+  color: var(--form-help-color);
+  display: block;
+  font-size: var(--font-size-sm);
+  margin-top: 5px;
+  transition: color 0.5s ease;
+}
+.form-control:focus-within .form-help {
+  color: var(--form-help-active-color);
+}
+
+input.form-control,
+input.form-control[readonly],
+textarea.form-control,
+.form-select {
+  background: var(--form-control-bg);
+  border: 1px solid var(--form-input-border-color);
+  box-shadow: var(--form-input-shadow);
+  color: var(--form-input-text-color);
+  padding: 3px 7px 4px;
+  white-space: nowrap;
+  word-break: keep-all;
+  transition: box-shadow .08s ease-in, color .08s ease-in;
+}
+input.form-check-input {
+  border: 1px solid var(--form-type-check-input-border-color);
+  box-shadow: var(--form-type-check-input-box-shadow);
+}
+input.form-control:focus,
+textarea.form-control:focus,
+.form-select:focus,
+.custom-file-input:focus ~ .custom-file-label,
+input.form-check-input:focus {
+  border-color: var(--form-input-hover-border-color);
+  box-shadow: var(--form-input-hover-shadow);
+  outline: 0;
+}
+.form-check-input:checked {
+  background-color: var(--form-type-check-input-checked-bg);
+}
+.form-check-input:focus {
+  box-shadow: var(--form-input-hover-shadow);
+}
+
+.form-control + .input-group-append {
+  color: var(--gray-600);
+  height: 30px;
+}
+.form-control + .input-group-append i {
+  color: var(--gray-600);
+}
+
+textarea.form-control {
+  height: auto;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.form-select {
+  background-position: right 5px center;
+  padding: 3px 28px 4px 7px;
+}
+.ts-dropdown.form-select {
+  height: auto;
+}
+
+// Checkbox widgets
+.form-check {
+  margin: 0;
+  padding: 0;
+}
+label.form-check-label {
+  margin: 0;
+  padding: 0 0 0 5px;
+}
+.form-check .form-check-input {
+  float: none;
+  margin-left: 0;
+  margin-top: 2px;
+}
+.form-check-inline + .form-check-inline {
+  margin-left: 15px;
+}
+
+.datetime-widget select,
+.datetime-widget .input-group > .form-select {
+  min-width: max-content;
+  -webkit-appearance: none; // needed for Safari
+}
+.datetime-widget + .datetime-widget {
+  margin-left: 10px;
+}
+
+.datetime-widget select + select {
+  margin-left: 4px;
+}
+
+.datetime-widget-time select {
+  margin: 0 0 0 2px;
+}
+.datetime-widget-time select:first-child {
+  margin-left: 0;
+}
+.datetime-widget-time select:last-child {
+  margin-right: 0;
+}
+
+.nullable-control label,
+fieldset .form-group .nullable-control label {
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+// Utilities to create common form fields (long, short, etc.)
+.short  {
+  flex: 0 0 20% !important;
+}
+
+.long .form-control, .large .form-control {
+  max-width: unset !important;
+}
+
+.large .input.form-control {
+  font-size: 18px !important;
+}
+
+.large textarea.form-control {
+  height: 500px;
+  max-width: unset !important;
+}
+
+.code input.form-control, .code textarea.form-control {
+  font-family: monospace !important;
+}
+
+.field-group .long .form-control, .field-group .large .form-control {
+  flex: 0 0 100% !important;
+  max-width: unset !important;
+}
+
+.field-group .large textarea.form-control {
+  flex: 0 0 100% !important;
+  height: 500px;
+  max-width: unset !important;
+}
+
+// Form tabs
+.form-tabs .nav-tabs {
+  background: transparent;
+  border: 0;
+  box-shadow: 0 1px 0 var(--form-tabs-border-color);
+  margin: 0px 0px 20px;
+  padding-left: 0px;
+}
+
+.form-tabs .nav-tabs a, .form-tabs .nav-tabs a:hover {
+  border: 0;
+  color: var(--text-color);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  margin: 0 28px 0 0;
+  padding: 4px 0px 8px;
+}
+
+.form-tabs .nav-tabs .fa {
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  margin-right: 4px;
+}
+
+.form-tabs .nav-tabs .nav-link.active {
+  background: transparent;
+  box-shadow: inset 0px -2px 0 0px var(--link-color);
+  color: var(--link-color);
+  transition: box-shadow .3s ease-in-out;
+}
+
+.form-tabs .nav-tabs .nav-item .badge {
+  margin-left: 4px;
+  padding: 3px 6px;
+}
+
+.form-tabs .tab-help {
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+
+// Form fieldsets (used for the "from groups" feature)
+fieldset {
+  background: var(--fieldset-bg);
+  border: var(--border-width) var(--border-style) var(--border-color);
+  border-radius: var(--border-radius);
+  margin: 10px 0;
+  padding: 10px 20px 15px;
+}
+
+fieldset > legend {
+  border: 0;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  margin: 0 0 5px -5px;
+  padding: 0 5px;
+  width: auto;
+}
+fieldset > legend .fa {
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  margin-right: 4px;
+}
+
+fieldset .form-section {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+fieldset .form-group {
+  padding: 10px 0;
+}
+
+fieldset .form-group label,
+fieldset .form-group legend.col-form-label {
+  flex: 100% 0 0;
+  margin: 0 0 4px 0;
+  text-align: left;
+}
+
+fieldset .form-group ,
+fieldset .field-checkbox  {
+  flex: 0 0 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+fieldset .field-checkbox ,
+fieldset .form-group.field-collection-action {
+  margin-left: 0;
+}
+
+fieldset .form-group.field-collection-action {
+  padding-top: 0;
+}
+
+fieldset .field-collection-action .btn {
+  margin-left: 0;
+}
+
+fieldset .legend-help {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  margin-bottom: 15px;
+  margin-top: -5px;
+}
+
+// Form errors
+.has-error .form-help, .has-error .control-label, .has-error .radio,
+.has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline,
+.has-error.radio label, .has-error.checkbox label, .has-error.radio-inline label,
+.has-error.checkbox-inline label {
+  color: var(--gray-800);
+}
+
+.has-error  input.form-control,
+.has-error  textarea.form-control,
+.has-error  .form-select,
+.has-error .input-group,
+.has-error .btn.input-file-container,
+.has-error .CodeMirror,
+.has-error {
+  box-shadow: 0 0 0 1px rgba(43, 45, 80, 0), 0 0 0 1px rgba(183, 6, 32, .2), 0 0 0 2px rgba(183, 6, 32, .25), 0 1px 1px rgba(0, 0, 0, .08);
+}
+
+.has-error .input-group {
+  border-radius: var(--border-radius);
+}
+
+.global-invalid-feedback {
+  background: var(--red-100);
+  border-radius: var(--border-radius);
+  color: var(--color-danger);
+  font-size:  14px;
+  margin:  5px 0;
+  padding: 6px 12px;
+}
+form .invalid-feedback {
+  color: var(--color-danger);
+  font-weight: 500;
+  padding-top: 6px;
+}
+form .invalid-feedback .badge-danger {
+  font-size: 0.6875rem;
+  margin-right: 2px;
+  padding: 3px 4px;
+}
+form .invalid-feedback > .d-block + .d-block {
+  margin-top: 5px;
+}
+
+// Form group inputs
+.input-group-text {
+  background-color: var(--form-input-group-text-bg);
+  border: 1px solid var(--form-input-group-text-border-color);
+  box-shadow: var(--form-input-box-shadow);
+  color: var(--form-input-text-color);
+}
+
+.input-group button,
+.input-group button:hover,
+.input-group button:active,
+.input-group button:focus {
+  height: 28px;
+  margin-top: 1px;
+}
+
+.input-group-append {
+  margin-left: 0;
+}
+.input-group-prepend {
+  margin-right: 0;
+}
+
+// This CSS trick allows to customize the <input type="file" /> field entirely
+// as explained in https://gist.github.com/barneycarroll/5244258
+.input-file-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.input-file-container [type=file] {
+  cursor: inherit;
+  display: block;
+  font-size: 999px;
+  filter: opacity(0);
+  min-height: 100%;
+  min-width: 100%;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  text-align: right;
+  top: 0;
+}

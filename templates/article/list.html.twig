@@ -1,0 +1,11 @@
+{% for article in articles %}
+    {% include 'article/item.html.twig' with { article, leftCol: leftCol, rightCol: rightCol } %}
+{% endfor %}
+
+<div class="container">
+    <div class="row">
+        <div class="d-flex align-items-center justify-content-center">
+            {{ knp_pagination_render(articles) }}
+        </div>
+    </div>
+</div>
