@@ -1,0 +1,13 @@
+{% set username = comment.user.username %}
+<div class="comment mb-5" id="c{{ comment.id }}">
+    <div class="card">
+        <div class="card-body comment-content">
+            <h5 class="card-title">
+                <a class="text-decoration-none" href="{{ path('user', { 'username': username }) }}">
+                    <span class="comment-author">{{ username }}</span>
+                </a> {{ comment.createdAt|date('d M Y à H:i:s') }}
+            </h5>
+            <p class="card-text">{{ comment.content }}</p>
+        </div>
+    </div>
+</div>

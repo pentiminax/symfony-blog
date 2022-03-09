@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% set page = entity %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {{ page.content|raw }}
+    </div>
+{% endblock %}

@@ -20,6 +20,9 @@
     "doctrine/common": {
         "version": "3.2.1"
     },
+    "doctrine/data-fixtures": {
+        "version": "1.5.2"
+    },
     "doctrine/dbal": {
         "version": "3.3.0"
     },
@@ -40,6 +43,18 @@
             "./config/packages/test/doctrine.yaml",
             "./src/Entity/.gitignore",
             "./src/Repository/.gitignore"
+        ]
+    },
+    "doctrine/doctrine-fixtures-bundle": {
+        "version": "3.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "1f5514cfa15b947298df4d771e694e578d4c204d"
+        },
+        "files": [
+            "./src/DataFixtures/AppFixtures.php"
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
@@ -79,11 +94,26 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "easycorp/easyadmin-bundle": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "b131e6cbfe1b898a508987851963fff485986285"
+        }
+    },
     "egulias/email-validator": {
         "version": "3.1.2"
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
+    },
+    "knplabs/knp-components": {
+        "version": "v3.5.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.8.0"
     },
     "laminas/laminas-code": {
         "version": "4.5.1"
@@ -341,6 +371,9 @@
     "symfony/polyfill-php81": {
         "version": "v1.24.0"
     },
+    "symfony/polyfill-uuid": {
+        "version": "v1.24.0"
+    },
     "symfony/process": {
         "version": "v6.0.3"
     },
@@ -434,6 +467,9 @@
             "./templates/base.html.twig"
         ]
     },
+    "symfony/uid": {
+        "version": "v6.0.3"
+    },
     "symfony/validator": {
         "version": "6.0",
         "recipe": {
@@ -491,7 +527,7 @@
             "ref": "d2d1e09675fff3fa4193aa9950a7c39934524a25"
         },
         "files": [
-            "./assets/app.js",
+            "./assets/main.js",
             "./assets/bootstrap.js",
             "./assets/controllers.json",
             "./assets/controllers/hello_controller.js",

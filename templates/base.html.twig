@@ -1,10 +1,20 @@
+{% set menus = menu_service.findAll %}
+{% set options = option_service.findAll %}
+
+{% set route = app.request.get('_route') %}
+
+{% set ea_edit_current_entity = null %}
+
+{% if entity is defined %}
+    {% set label_edit_current_entity = entity_label(entity) %}
+    {% set ea_edit_current_entity = ea_edit(entity) %}
+{% endif %}
+
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        <title>{{ options['blog_title'] }} - {% block title %}{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -14,6 +24,161 @@
         {% endblock %}
     </head>
     <body>
+
+    {% block javascript_page_color_scheme %}
+        <script>
+            function setEasyAdminColorScheme () {
+                const selectedColorScheme = localStorage.getItem('blog/colorScheme') || 'auto';
+                const resolvedColorScheme = 'auto' === selectedColorScheme
+                    ? matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+                    : selectedColorScheme;
+
+                document.body.classList.remove('light-scheme', 'dark-scheme');
+                document.body.classList.add('light' === resolvedColorScheme ? 'light-scheme' : 'dark-scheme');
+                localStorage.setItem('blog/colorScheme', selectedColorScheme);
+                document.body.style.colorScheme = resolvedColorScheme;
+            }
+            setEasyAdminColorScheme();
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+                setEasyAdminColorScheme();
+            });
+        </script>
+    {% endblock javascript_page_color_scheme %}
+
+    {% if is_granted('ROLE_AUTHOR') %}
+        <nav class="py-2 bg-dark border-bottom">
+            <div class="container d-flex flex-wrap">
+
+                <div class="dropdown">
+                    <a class="nav-link link-light px-2 dropdown-toggle text-white" href="#" role="button" id="dropdownAdminLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ options['blog_title'] }}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownAdminLink">
+                        <li><a class="dropdown-item" href="{{ ea_url() }}">Tableau de bord</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a class="dropdown-item" href="{{ ea_index('MenuCrudController') }}">Menus</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <div class="dropdown">
+                    <a class="nav-link link-light px-2 dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Ajouter
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ ea_new('ArticleCrudController') }}">Article</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a class="dropdown-item" href="{{ ea_new('PageCrudController') }}">Page</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                {% if ea_edit_current_entity is not null %}
+                    <ul class="nav me-auto">
+                        <li class="nav-item">
+                            <a href="{{ ea_edit_current_entity }}" class="nav-link nav-link-admin link-light px-2">{{ label_edit_current_entity }}</a>
+                        </li>
+                    </ul>
+                {% endif %}
+
+            </div>
+        </nav>
+    {% endif %}
+
+        <div class="container">
+            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                    <span class="fs-4 header-title">{{ options['header_title'] }}</span>
+                </a>
+                <ul class="nav nav-pills align-items-center">
+
+                    {% for menu in menus %}
+                        {% if menu.subMenus.count > 0 %}
+                            <div class="dropdown">
+                                <a class="nav-link link-light px-2 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="menu-label">{{ menu.name }}</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    {% for subMenu in menu.subMenus %}
+                                        <li><a class="dropdown-item" href="{{ path('category_show', { 'slug': subMenu.category.slug }) }}">{{ subMenu.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% else %}
+                            <li class="nav-item">
+                                <a href="{{ menu|menuLink }}" class="nav-link">
+                                    <span class="menu-label">{{ menu.name }}</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item">
+                            <a href="{{ path('register') }}" class="nav-link">
+                                <span class="menu-label">S'inscrire</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('login') }}" class="nav-link">
+                                <span class="menu-label">Se connecter</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <div class="dropdown">
+                            <a class="nav-link link-light px-2 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ app.user.username|capitalize }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('user', { 'username': app.user.username }) }}">Mon profil</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('logout') }}">Déconnexion</a>
+                                </li>
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <li class="nav-item ms-2">
+                        <div class="dropdown dropdown-appearance">
+
+                            <a class="dropdown-appearance-button" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-adjust"></i>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#" class="dropdown-item" data-color-scheme="light">
+                                        <i class="far fa-sun"></i> <span>Clair</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="dropdown-item" data-color-scheme="dark">
+                                        <i class="far fa-moon"></i> <span>Sombre</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="dropdown-item" data-color-scheme="auto">
+                                        <i class="fas fa-desktop"></i> <span>Automatique</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                </ul>
+            </header>
+        </div>
+
         {% block body %}{% endblock %}
+
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                <div class="col-md-4 d-flex align-items-center">
+                    <span class="copyright">© {{ 'now'|date('Y') }} {{ options['blog_copyright'] }}</span>
+                </div>
+            </footer>
+        </div>
     </body>
 </html>
