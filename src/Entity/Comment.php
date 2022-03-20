@@ -28,6 +28,11 @@ class Comment implements TimestampedInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user;
 
+    public function __construct(Article $article)
+    {
+        $this->article = $article;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

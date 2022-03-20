@@ -20,14 +20,4 @@ class CommentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Comment::class);
     }
-
-    public function findAllByArticle(Article $article)
-    {
-        return $this->createQueryBuilder('c')
-            ->where('c.article = :article')
-            ->setParameter('article', $article)
-            ->orderBy('c.createdAt')
-            ->getQuery()
-            ->getResult();
-    }
 }

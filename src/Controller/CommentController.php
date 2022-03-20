@@ -32,7 +32,7 @@ class CommentController extends AbstractController
 
         $commentForm = $request->request->all('comment_form');
 
-        if (!$this->isCsrfTokenValid('add-comment', $commentForm['token'])) {
+        if (!$this->isCsrfTokenValid('comment-add', $commentForm['_token'])) {
             return $this->json([
                 'code' => 'INVALID_CSRF_TOKEN'
             ], Response::HTTP_BAD_REQUEST);
@@ -46,9 +46,8 @@ class CommentController extends AbstractController
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $comment = new Comment();
+        $comment = new Comment($article);
         $comment->setContent($commentForm['content']);
-        $comment->setArticle($article);
         $comment->setUser($this->getUser());
         $comment->setCreatedAt(new \DateTime());
         $this->em->persist($comment);

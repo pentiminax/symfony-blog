@@ -17,7 +17,9 @@
         <hr>
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            {% include 'comment/form_add.html.twig' %}
+            <div class="comment-area mb-5">
+                {{ form(commentForm, { attr: { class: 'comment-form' } }) }}
+            </div>
             <hr>
         {% endif %}
 
