@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Comment;
-use App\Form\Type\CommentFormType;
+use App\Form\Type\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +20,7 @@ class ArticleController extends AbstractController
 
         $comment = new Comment($article);
 
-        $commentForm = $this->createForm(CommentFormType::class, $comment);
+        $commentForm = $this->createForm(CommentType::class, $comment);
 
         return $this->renderForm('article/index.html.twig', [
             'entity' => $article,

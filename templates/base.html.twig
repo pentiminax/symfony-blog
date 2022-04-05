@@ -1,8 +1,6 @@
 {% set menus = menu_service.findAll %}
 {% set options = option_service.findAll %}
 
-{% set route = app.request.get('_route') %}
-
 {% set ea_edit_current_entity = null %}
 
 {% if entity is defined %}
@@ -100,7 +98,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     {% for subMenu in menu.subMenus %}
-                                        <li><a class="dropdown-item" href="{{ path('category_show', { 'slug': subMenu.category.slug }) }}">{{ subMenu.name }}</a></li>
+                                        <li><a class="dropdown-item" href="{{ subMenu|menuLink }}">{{ subMenu.name }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </div>
