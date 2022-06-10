@@ -1,0 +1,20 @@
+<div class="answer mb-4" id="a{{ answer.id }}">
+
+    <div class="card mt-2">
+        <div class="comment-content">
+            <h5 class="card-title">
+                <a class="text-decoration-none" href="{{ path('user', { 'username': answer.user.username }) }}">
+                    <span class="comment-author">{{ answer.user.username }}</span>
+                </a>
+            </h5>
+            <small> {{ answer.createdAt|ago }}</small>
+            <p class="card-text">{{ answer.content }}</p>
+        </div>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="card-footer">
+                {% include 'comment/_card_footer.twig' with { 'action': 'show', 'id': answer.id, 'isCommentAuthor': answer|isCommentAuthor } %}
+            </div>
+        {% endif %}
+    </div>
+
+</div>

@@ -16,7 +16,9 @@ class ArticleService
         private ArticleRepository $articleRepo,
         private OptionService $optionService,
         private PaginatorInterface $paginator
-    ) {}
+    ) {
+
+    }
 
     public function getPaginatedArticles(?Category $category = null): PaginationInterface
     {

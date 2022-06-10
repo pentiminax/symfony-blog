@@ -4,7 +4,11 @@ namespace App\Entity;
 
 use App\Model\TimestampedInterface;
 use App\Repository\CommentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -12,25 +16,37 @@ class Comment
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    #[Groups('comment')]
+    private ?int $id;
 
     #[ORM\Column(type: 'text')]
-    private $content;
+    #[Groups('comment')]
+    private ?string $content;
 
     #[ORM\Column(type: 'datetime')]
-    private $createdAt;
+    #[Groups('comment')]
+    private \DateTimeInterface $createdAt;
 
     #[ORM\ManyToOne(targetEntity: Article::class, inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private $article;
+    private Article $article;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $user;
+    private UserInterface $user;
 
-    public function __construct(Article $article)
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'replies')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    private ?self $parent;
+
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    private Collection $replies;
+
+    public function __construct(Article $article, UserInterface $user)
     {
         $this->article = $article;
+        $this->user = $user;
+        $this->replies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -62,12 +78,12 @@ class Comment
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser(): User
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(User $user): self
     {
         $this->user = $user;
 
@@ -86,8 +102,53 @@ class Comment
         return $this;
     }
 
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function addReply(Comment $comment): self
+    {
+        if (!$this->replies->contains($comment)) {
+            $this->replies->add($comment);
+            $comment->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function getReplies(): Collection
+    {
+        return $this->replies;
+    }
+
+    #[Groups('comment')]
+    public function getUserId(): ?int
+    {
+        return $this->user?->getId();
+    }
+
+    #[Groups('comment')]
+    public function getUsername(): ?string
+    {
+        return $this->user?->getUsername();
+    }
+
+    #[Groups('comment')]
+    public function getParentId(): ?int
+    {
+        return $this->parent?->getId();
+    }
+
     public function __toString(): string
     {
-        return "{$this->user->getUsername()} le {$this->createdAt->format('d/m/y à H:i:s')}";
+        return "{$this->user->getUsername()} {$this->createdAt->format('d/m/y à H:i:s')}";
     }
 }

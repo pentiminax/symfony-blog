@@ -1,0 +1,12 @@
+{% if action == 'show' %}
+    <button class="btn btn-sm btn-outline-primary" id="show-reply-dialog-button" data-id="{{ id }}">Répondre</button>
+
+    {% if isCommentAuthor %}
+        <button class="btn btn-sm btn-outline-danger ms-2 float-end" id="delete-comment-button" data-id="{{ id }}">Supprimer</button>
+        <button class="btn btn-sm btn-outline-info float-end" id="edit-comment-button" data-action="showEditArea" data-id="{{ id }}">Modifier</button>
+    {% endif %}
+
+{% elseif action == 'edit' %}
+    <button class="btn btn-sm btn-outline-danger ms-2 float-end" id="cancel-edit-comment-button" data-action="hideEditArea" data-id="{{ id }}">Annuler</button>
+    <button class="btn btn-sm btn-outline-info float-end" id="save-edit-comment-button" data-action="hideEditArea" data-id="{{ id }}">Enregistrer</button>
+{% endif %}

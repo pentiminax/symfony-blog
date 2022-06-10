@@ -7,12 +7,14 @@ use App\Controller\Admin\CategoryCrudController;
 use App\Controller\Admin\PageCrudController;
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Entity\Menu;
 use App\Entity\Page;
 use Doctrine\Common\Collections\Collection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Security;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -23,14 +25,17 @@ class AppExtension extends AbstractExtension
 
     public function __construct(
         private RouterInterface $router,
-        private AdminUrlGenerator $adminUrlGenerator) {}
+        private AdminUrlGenerator $adminUrlGenerator,
+        private Security $security
+    ) {
+
+    }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('ea_index', [$this, 'getAdminUrl']),
+            new TwigFunction('ea_admin_url', [$this, 'getAdminUrl']),
             new TwigFunction('ea_edit', [$this, 'getAdminEditUrl']),
-            new TwigFunction('ea_new', [$this, 'getAdminNewUrl']),
             new TwigFunction('entity_label', [$this, 'getEditCurrentEntityLabel']),
         ];
     }
@@ -40,6 +45,7 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFilter('menuLink', [$this, 'menuLink']),
             new TwigFilter('categoriesToString', [$this, 'categoriesToString']),
+            new TwigFilter('isCommentAuthor', [$this, 'isCommentAuthor']),
         ];
     }
 
@@ -100,24 +106,17 @@ class AppExtension extends AbstractExtension
         };
     }
 
-    public function getAdminUrl(string $controller): string
+    public function getAdminUrl(string $controller, string $action = Action::INDEX): string
     {
         return $this->adminUrlGenerator
             ->setController(self::ADMIN_NAMESPACE . '\\' . $controller)
-            ->generateUrl();
-    }
-
-    public function getAdminNewUrl(string $controller): string
-    {
-        return $this->adminUrlGenerator
-            ->setController(self::ADMIN_NAMESPACE . '\\' . $controller)
-            ->setAction(Action::NEW)
+            ->setAction($action)
             ->generateUrl();
     }
 
     public function getAdminEditUrl(object $entity): ?string
     {
-        $crudController = match($entity::class) {
+        $crudController = match ($entity::class) {
             Article::class => ArticleCrudController::class,
             Category::class => CategoryCrudController::class,
             Page::class => PageCrudController::class
@@ -128,5 +127,10 @@ class AppExtension extends AbstractExtension
             ->setAction(Action::EDIT)
             ->setEntityId($entity->getId())
             ->generateUrl();
+    }
+
+    public function isCommentAuthor(Comment $comment): bool
+    {
+        return $this->security->getUser() === $comment->getUser();
     }
 }

@@ -67,6 +67,6 @@ class Media
 
     public function __toString(): string
     {
-        return $this->title;
+        return $this->name;
     }
 }

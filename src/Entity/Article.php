@@ -18,11 +18,9 @@ class Article implements TimestampedInterface
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups('article')]
     private $title;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups('article')]
     private $slug;
 
     #[ORM\Column(type: 'text', nullable: true)]
@@ -32,18 +30,16 @@ class Article implements TimestampedInterface
     private $featuredText;
 
     #[ORM\ManyToOne(targetEntity: Media::class)]
-    #[Groups('article')]
     private $featuredImage;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'articles')]
-    #[Groups('article')]
     private $categories;
 
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: Comment::class)]
+    #[ORM\OrderBy(['createdAt' => 'DESC'])]
     private $comments;
 
     #[ORM\Column(type: 'datetime')]
-    #[Groups('article')]
     private $createdAt;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -134,7 +130,7 @@ class Article implements TimestampedInterface
 
     public function __toString(): string
     {
-     return $this->title;
+        return $this->title;
     }
 
     public function getSlug(): ?string

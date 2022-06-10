@@ -54,7 +54,7 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownAdminLink">
                         <li><a class="dropdown-item" href="{{ ea_url() }}">Tableau de bord</a>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <li><a class="dropdown-item" href="{{ ea_index('MenuCrudController') }}">Menus</a></li>
+                            <li><a class="dropdown-item" href="{{ ea_admin_url('MenuCrudController') }}">Menus</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -64,9 +64,9 @@
                         Ajouter
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ ea_new('ArticleCrudController') }}">Article</a></li>
+                        <li><a class="dropdown-item" href="{{ ea_admin_url('ArticleCrudController', 'new') }}">Article</a></li>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <li><a class="dropdown-item" href="{{ ea_new('PageCrudController') }}">Page</a></li>
+                            <li><a class="dropdown-item" href="{{ ea_admin_url('PageCrudController', 'new') }}">Page</a></li>
                         {% endif %}
                     </ul>
                 </div>

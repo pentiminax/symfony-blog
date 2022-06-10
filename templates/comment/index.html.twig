@@ -1,13 +1,29 @@
-{% set username = comment.user.username %}
-<div class="comment mb-5" id="c{{ comment.id }}">
+{% set username = app.user.username %}
+
+<div class="comment" id="c{{ comment.id }}">
     <div class="card">
-        <div class="card-body comment-content">
+        <div class="comment-content">
             <h5 class="card-title">
                 <a class="text-decoration-none" href="{{ path('user', { 'username': username }) }}">
                     <span class="comment-author">{{ username }}</span>
-                </a> {{ comment.createdAt|date('d M Y à H:i:s') }}
+                </a>
             </h5>
-            <p class="card-text">{{ comment.content }}</p>
+            <small>{{ comment.createdAt|ago }}</small>
+            {% include 'comment/_card_text.html.twig' with { 'action': 'show', 'content': comment.content } %}
         </div>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="card-footer">
+                {% include 'comment/_card_footer.twig' with { 'action': 'show', 'id': comment.id, 'isCommentAuthor': comment|isCommentAuthor } %}
+            </div>
+        {% endif %}
     </div>
+
+    <div class="comment-answers">
+        {% if item.answers is defined %}
+            {% for answer in item.answers %}
+                {% include 'comment/answer.html.twig' with { 'answer': answer } %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
 </div>

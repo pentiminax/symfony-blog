@@ -20,4 +20,20 @@ class CommentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Comment::class);
     }
+
+    public function findForPagination(?Article $article = null): Query
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->orderBy('c.createdAt', 'DESC');
+
+        if ($article) {
+            $qb
+                ->leftJoin('c.article', 'article')
+                ->leftJoin('c.answers', 'answers')
+                ->where($qb->expr()->eq('article.id', ':articleId'))
+                ->setParameter('articleId', $article->getId());
+        }
+
+        return $qb->getQuery();
+    }
 }

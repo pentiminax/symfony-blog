@@ -7,7 +7,6 @@ use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
-use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Article|null find($id, $lockMode = null, $lockVersion = null)
@@ -29,8 +28,8 @@ class ArticleRepository extends ServiceEntityRepository
 
         if ($category) {
             $qb->leftJoin('a.categories', 'c')
-            ->where($qb->expr()->eq('c.id', ':id'))
-            ->setParameter('id', $category->getId());
+                ->where($qb->expr()->eq('c.id', ':id'))
+                ->setParameter('id', $category->getId());
         }
 
         return $qb->getQuery();

@@ -1,0 +1,5 @@
+{% if action == 'show' %}
+    <p class="card-text">{{ content }}</p>
+{% elseif action == 'edit' %}
+    <textarea id="comment_content" name="comment[content]" required="required" class="form-control">{{ content }}</textarea>
+{% endif %}

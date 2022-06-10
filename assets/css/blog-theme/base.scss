@@ -12,6 +12,12 @@ a {
   color: var(--link-color);
 }
 
+.comment-answers {
+  border-left: 1px solid;
+  margin-left: 10px;
+  padding-left: 30px;
+}
+
 .article-title > a.text-decoration-none {
   color: var(--text-color);
 }
@@ -24,11 +30,20 @@ a {
   color: var(--button-primary-color);
 }
 
+.comment {
+  @extend .mb-4;
+}
+
+.comment-answers {
+  @extend .mt-4
+}
+
 .comment-author {
-  color: var( --comment-author-color);
+  color: var(--comment-author-color);
 }
 
 .comment-content {
+  @extend .card-body;
   background: var(--form-control-bg);
 }
 
@@ -66,13 +81,16 @@ a {
   li {
     border-radius: var(--border-radius);
   }
+
   a, a:hover, a:active {
     border-radius: var(--border-radius);
     color: var(--dropdown-link-color);
   }
+
   a:hover {
     background: var(--dropdown-link-hover-bg);
   }
+
   i {
     color: var(--dropdown-icon-color);
     font-size: var(--font-size-lg);
@@ -88,17 +106,29 @@ a {
     display: flex;
     padding: 4px 5px;
   }
+
   .dropdown-divider {
     background: transparent;
     border-top-color: var(--dropdown-border-color);
     opacity: 1;
   }
+
   .dropdown-item-color-scheme {
     color: var(--dropdown-color);
 
-    &:hover { background: transparent; }
-    label { align-items: center; display: flex; }
-    i { margin-top: 0; }
+    &:hover {
+      background: transparent;
+    }
+
+    label {
+      align-items: center;
+      display: flex;
+    }
+
+    i {
+      margin-top: 0;
+    }
+
     select {
       background: var(--dropdown-bg);
       border: 1px solid var(--dropdown-border-color);
@@ -120,7 +150,7 @@ a {
 }
 
 input.form-control,
-textarea.form-control{
+textarea.form-control {
   background: var(--form-control-bg);
   border: 1px solid var(--form-input-border-color);
   box-shadow: var(--form-input-shadow);
