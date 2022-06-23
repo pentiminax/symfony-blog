@@ -86,7 +86,7 @@
         <div class="container">
             <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
                 <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                    <span class="fs-4 header-title">{{ options['header_title'] }}</span>
+                    <span class="fs-4 header-title">{{ options['blog_title'] }}</span>
                 </a>
                 <ul class="nav nav-pills align-items-center">
 
@@ -112,11 +112,11 @@
                     {% endfor %}
 
                     {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <li class="nav-item">
-                            <a href="{{ path('register') }}" class="nav-link">
-                                <span class="menu-label">S'inscrire</span>
-                            </a>
-                        </li>
+                        {% if '1' == options['users_can_register'] %}
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="{{ path('register') }}">S'inscrire</a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a href="{{ path('login') }}" class="nav-link">
                                 <span class="menu-label">Se connecter</span>

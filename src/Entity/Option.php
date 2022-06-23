@@ -10,7 +10,6 @@ class Option
 {
     const BLOG_ARTICLES_LIMIT = 'blog_articles_limit';
     const BLOG_COPYRIGHT = 'blog_copyright';
-    const BLOG_ABOUT = 'blog_about';
     const BLOG_TITLE = 'blog_title';
     const HEADER_TITLE = 'header_title';
 
@@ -31,11 +30,11 @@ class Option
     #[ORM\Column(type: 'string', length: 255)]
     private $type;
 
-    public function __construct(string $name, string $value, string $label, string $type)
+    public function __construct(string $label,string $name,string $value, string $type)
     {
+        $this->label = $label;
         $this->name = $name;
         $this->value = $value;
-        $this->label = $label;
         $this->type = $type;
     }
 
