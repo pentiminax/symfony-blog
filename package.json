@@ -1,10 +1,10 @@
 {
     "devDependencies": {
-        "@symfony/webpack-encore": "^2.1.0",
-        "core-js": "^3.22.8",
+        "@symfony/webpack-encore": "^3.0.0",
+        "core-js": "^3.23.4",
         "regenerator-runtime": "^0.13.9",
-        "sass": "^1.52.3",
-        "sass-loader": "^13.0.0",
+        "sass": "^1.53.0",
+        "sass-loader": "^13.0.2",
         "webpack-notifier": "^1.15.0"
     },
     "license": "UNLICENSED",
@@ -19,6 +19,6 @@
         "@fortawesome/fontawesome-free": "^6.1.1",
         "@tarekraafat/autocomplete.js": "^10.2.7",
         "bootstrap": "^5.1.3",
-        "javascript-time-ago": "^2.5.4"
+        "javascript-time-ago": "^2.5.6"
     }
 }
