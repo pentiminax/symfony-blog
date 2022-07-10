@@ -24,7 +24,12 @@ class MenuCrudController extends AbstractCrudController
     const MENU_LINKS = 2;
     const MENU_CATEGORIES = 3;
 
-    public function __construct(private MenuRepository $menuRepo, private RequestStack $requestStack) {}
+    public function __construct(
+        private MenuRepository $menuRepo,
+        private RequestStack   $requestStack
+    )
+    {
+    }
 
     public static function getEntityFqcn(): string
     {
@@ -37,7 +42,7 @@ class MenuCrudController extends AbstractCrudController
 
         $entityLabelInSingular = 'un menu';
 
-        $entityLabelInPlural =  match($subMenuIndex) {
+        $entityLabelInPlural = match ($subMenuIndex) {
             self::MENU_ARTICLES => 'Articles',
             self::MENU_CATEGORIES => 'Catégories',
             self::MENU_LINKS => 'Liens personnalisés',
@@ -74,7 +79,7 @@ class MenuCrudController extends AbstractCrudController
 
     private function getFieldNameFromSubMenuIndex(int $subMenuIndex): string
     {
-        return match($subMenuIndex) {
+        return match ($subMenuIndex) {
             self::MENU_ARTICLES => 'article',
             self::MENU_CATEGORIES => 'category',
             self::MENU_LINKS => 'link',

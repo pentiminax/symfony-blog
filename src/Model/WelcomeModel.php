@@ -7,8 +7,8 @@ class WelcomeModel
     const SITE_TITLE_LABEL = 'Titre du site';
     const SITE_TITLE_NAME = 'blog_title';
 
-    const HEADER_TITLE_LABEL = 'Titre du menu';
-    const HEADER_TITLE_NAME = 'header_title';
+    const SITE_INSTALLED_LABEL = 'Site installé';
+    const SITE_INSTALLED_NAME = 'blog_installed';
 
     private ?string $siteTitle;
 

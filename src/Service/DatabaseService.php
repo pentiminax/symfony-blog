@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -18,37 +19,37 @@ class DatabaseService
         $application->setAutoExit(false);
 
         $input = new ArrayInput([
-            'command' => 'doctrine:database:create'
+            'command' => 'd:c:u'
         ]);
 
-        try {
-            $application->run($input);
-        } catch (\Exception $e) {
-            return false;
-        }
+        $this->run($application, $input);
+
 
         $input = new ArrayInput([
-            'command' => 'doctrine:schema:update',
+            'command' => 'd:s:u',
             '--force' => true
         ]);
 
-        try {
-            $application->run($input);
-        } catch (\Exception $e) {
-            return false;
-        }
+        $this->run($application, $input);
 
         $input = new ArrayInput([
             'command' => 'doctrine:fixtures:load',
             '--append' => true
         ]);
 
+        $this->run($application, $input);
+
+        return Command::SUCCESS;
+    }
+
+    private function run(Application $application, ArrayInput $input): bool
+    {
         try {
-            $application->run($input);
+            $result = $application->run($input);
         } catch (\Exception $e) {
-            return false;
+            $result = false;
         }
 
-        return true;
+        return $result;
     }
 }

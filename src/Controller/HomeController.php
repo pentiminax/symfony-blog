@@ -19,7 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    public function __construct(private OptionService $optionService) {}
+    public function __construct(private OptionService $optionService)
+    {
+    }
 
     #[Route('/', name: 'home')]
     public function index(ArticleService $articleService, CategoryRepository $categoryRepo): Response
@@ -33,7 +35,7 @@ class HomeController extends AbstractController
     #[Route('/welcome', name: 'welcome')]
     public function welcome(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
     {
-        if ($this->optionService->getValue(WelcomeModel::SITE_TITLE_NAME)) {
+        if ($this->optionService->getValue(WelcomeModel::SITE_INSTALLED_NAME)) {
             return $this->redirectToRoute('home');
         }
 
@@ -45,15 +47,16 @@ class HomeController extends AbstractController
             /** @var WelcomeModel $data */
             $data = $welcomeForm->getData();
 
-            $siteTitle = new Option(WelcomeModel::SITE_TITLE_NAME, $data->getSiteTitle(), WelcomeModel::SITE_TITLE_LABEL, TextType::class);
-            $headerTitle = new Option(WelcomeModel::HEADER_TITLE_NAME, $data->getSiteTitle(), WelcomeModel::HEADER_TITLE_LABEL, TextType::class);
+            $siteTitle = new Option(WelcomeModel::SITE_TITLE_LABEL, WelcomeModel::SITE_TITLE_NAME, $data->getSiteTitle(), TextType::class);
+            $siteInstalled = new Option(WelcomeModel::SITE_INSTALLED_LABEL, WelcomeModel::SITE_INSTALLED_NAME, true, null);
 
             $user = new User($data->getUsername());
             $user->setRoles(['ROLE_ADMIN']);
             $user->setPassword($passwordHasher->hashPassword($user, $data->getPassword()));
 
             $em->persist($siteTitle);
-            $em->persist($headerTitle);
+            $em->persist($siteInstalled);
+
             $em->persist($user);
 
             $em->flush();
@@ -62,7 +65,7 @@ class HomeController extends AbstractController
         }
 
         return $this->render('home/welcome.html.twig', [
-          'form' => $welcomeForm->createView()
+            'form' => $welcomeForm->createView()
         ]);
     }
 }

@@ -27,10 +27,10 @@ class Option
     #[ORM\Column(type: 'text', nullable: true)]
     private $value;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $type;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $type;
 
-    public function __construct(string $label,string $name,string $value, string $type)
+    public function __construct(string $label, string $name, string $value, ?string $type = null)
     {
         $this->label = $label;
         $this->name = $name;
@@ -93,6 +93,6 @@ class Option
 
     public function __toString(): string
     {
-         return  $this->value ?? '';
+        return $this->value ?? '';
     }
 }
