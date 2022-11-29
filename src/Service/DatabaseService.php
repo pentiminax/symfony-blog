@@ -19,11 +19,10 @@ class DatabaseService
         $application->setAutoExit(false);
 
         $input = new ArrayInput([
-            'command' => 'd:c:u'
+            'command' => 'doctrine:database:create'
         ]);
 
         $this->run($application, $input);
-
 
         $input = new ArrayInput([
             'command' => 'd:s:u',

@@ -235,9 +235,6 @@
     "symfony/doctrine-bridge": {
         "version": "v6.0.3"
     },
-    "symfony/doctrine-messenger": {
-        "version": "v6.0.3"
-    },
     "symfony/dotenv": {
         "version": "v6.0.3"
     },
@@ -328,18 +325,6 @@
             "version": "1.0",
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
-    },
-    "symfony/messenger": {
-        "version": "6.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "4.3",
-            "ref": "25e3c964d3aee480b3acc3114ffb7940c89edfed"
-        },
-        "files": [
-            "./config/packages/messenger.yaml"
-        ]
     },
     "symfony/mime": {
         "version": "v6.0.3"
