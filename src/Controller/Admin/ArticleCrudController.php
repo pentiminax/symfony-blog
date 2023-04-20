@@ -51,8 +51,6 @@ class ArticleCrudController extends AbstractCrudController
         yield SlugField::new('slug')
             ->setTargetFieldName('title');
 
-        yield TextEditorField::new('content');
-
         yield TextareaField::new('featuredText', 'Texte mis en avant');
 
         yield AssociationField::new('categories');
