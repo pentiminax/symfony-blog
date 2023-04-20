@@ -1,6 +1,7 @@
 import {$} from "./functions/dom";
 import Checklist from '@editorjs/checklist';
 import EditorJS from '@editorjs/editorjs';
+import Embed from '@editorjs/embed';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
 
@@ -38,11 +39,15 @@ export class Article {
                 case 'checklist':
                     articleContent.append(this.handleChecklistBlock(block.data));
                     break;
+                case 'embed':
+                    articleContent.append(this.handleEmbedBlock(block.data));
+                    break;
                 case 'header':
                     articleContent.append(this.handleHeaderBlock(block.data))
                     break;
                 case 'list':
                     articleContent.append(this.handleListBlock(block.data));
+                    break;
                 case 'paragraph':
                     articleContent.append(this.handleParagraphBlock(block.data));
                     break;
@@ -61,6 +66,15 @@ export class Article {
             },
             tools: {
                 checklist: Checklist,
+                embed: {
+                    class: Embed,
+                    config: {
+                        services: {
+                            youtube: true
+                        }
+                    },
+                    inlineToolbar: true
+                },
                 header: Header,
                 list: List
             }
@@ -117,6 +131,15 @@ export class Article {
         })
 
         return ul;
+    }
+
+    handleEmbedBlock(data) {
+        const iframe = document.createElement('iframe');
+        iframe.height = data.height;
+        iframe.src = data.embed
+        iframe.width = data.width;
+
+        return iframe;
     }
 
     handleHeaderBlock(data) {
