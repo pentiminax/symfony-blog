@@ -17,7 +17,7 @@
                     / <a class="text-decoration-none" href="{{ path('article_show', { 'slug': article.slug }) }}#comments">Laisser un commentaire</a>
                 {% endif %}
             </p>
-            {{ article.featuredText ?: article.content|striptags|slice(0, 130) ~ '...' }}
+            {{ article.featuredText ?: '' }}
         </div>
     </div>
 </article>

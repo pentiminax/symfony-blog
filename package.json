@@ -16,8 +16,10 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@editorjs/checklist": "^1.5.0",
         "@editorjs/editorjs": "^2.26.5",
         "@editorjs/header": "^2.7.0",
+        "@editorjs/list": "^1.8.0",
         "@fortawesome/fontawesome-free": "^6.4.0",
         "@tarekraafat/autocomplete.js": "^10.2.7",
         "bootstrap": "^5.2.3",

@@ -1,0 +1,13 @@
+.codex-editor {
+  @extend .border;
+  @extend .border-primary;
+  @extend .p-2;
+  @extend .rounded-2;
+  @extend .w-100;
+
+  background-color: aliceblue;
+}
+
+.ce-block__content {
+  max-width: 100%;
+}

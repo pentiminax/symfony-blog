@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use App\Form\Type\Admin\CommentType;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -66,6 +67,16 @@ class ArticleCrudController extends AbstractCrudController
             ->hideWhenCreating();
 
         yield DateTimeField::new('createdAt')->hideOnForm();
+    }
+
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        /** @var Article $article */
+        $article = $entityInstance;
+
+        $article->setAuthor($this->getUser());
+
+        parent::persistEntity($entityManager, $article);
     }
 
     public function viewArticle(AdminContext $context): Response

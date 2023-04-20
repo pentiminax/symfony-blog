@@ -6,12 +6,22 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="article-title">{{ article.title }}</h1>
+
+        <div class="row">
+            <div class="col">
+                <h1 class="article-title">{{ article.title }}</h1>
+            </div>
+        </div>
 
         <hr>
 
-        <div class="article-content">
-            {{ article.content|raw }}
+        <div class="row">
+            <div class="col">
+                <div id="article-content" class="article-content">
+            </div>
+        </div>
+
+
         </div>
 
         <h2 class="comments-title mt-5"><span id="comment-count">{{ article.comments|length }}</span> commentaire(s)</h2>
@@ -34,7 +44,13 @@
         </div>
     </div>
 
-    <div class="article-data d-none" data-id="{{ article.id }}" data-user-id="{{ app.user ? app.user.id : 0 }}"></div>
+    <div class="article-data d-none"
+         data-content="{{ article.content|json_encode }}"
+         data-id="{{ article.id }}"
+         data-is-author="{{ app.user == article.author and not preview }}"
+    >
+
+    </div>
 
 {% endblock %}
 
