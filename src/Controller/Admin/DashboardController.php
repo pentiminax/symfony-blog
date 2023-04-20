@@ -57,10 +57,14 @@ class DashboardController extends AbstractDashboardController
 
         if ($this->isGranted('ROLE_ADMIN')) {
             yield MenuItem::subMenu('Menus', 'fas fa-list')->setSubItems([
-                MenuItem::linkToCrud('Pages', 'fas fa-file', Menu::class),
-                MenuItem::linkToCrud('Articles', 'fas fa-newspaper', Menu::class),
-                MenuItem::linkToCrud('Liens personnalisés', 'fas fa-link', Menu::class),
-                MenuItem::linkToCrud('Catégories', 'fab fa-delicious', Menu::class),
+                MenuItem::linkToCrud('Pages', 'fas fa-file', Menu::class)
+                    ->setQueryParameter('submenuIndex', 0),
+                MenuItem::linkToCrud('Articles', 'fas fa-newspaper', Menu::class)
+                    ->setQueryParameter('submenuIndex', 1),
+                MenuItem::linkToCrud('Liens personnalisés', 'fas fa-link', Menu::class)
+                    ->setQueryParameter('submenuIndex', 2),
+                MenuItem::linkToCrud('Catégories', 'fab fa-delicious', Menu::class)
+                    ->setQueryParameter('submenuIndex', 3),
             ]);
         }
 
