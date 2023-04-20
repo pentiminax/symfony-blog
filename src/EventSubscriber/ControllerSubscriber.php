@@ -27,6 +27,10 @@ class ControllerSubscriber implements EventSubscriberInterface
 
     public function onControllerEvent(RequestEvent $event): void
     {
+        if ($event->getRequest()->isXmlHttpRequest()) {
+            return;
+        }
+
         $route = $event->getRequest()->attributes->getAlpha('_route');
 
         if ('welcome' !== $route && !$this->optionService->getValue(WelcomeModel::SITE_INSTALLED_NAME)) {
