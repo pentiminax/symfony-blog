@@ -96,14 +96,17 @@ class MenuCrudController extends AbstractCrudController
 
     private function getSubMenuIndex(): int
     {
-        $query = $this->requestStack->getMainRequest()->query;
 
-        if ($referer = $query->get('referrer')) {
+        $referer = $this->requestStack->getMainRequest()->headers->get('referer');
+        $query = '';
+
+
+        if ($referer !== null) {
             parse_str(parse_url($referer, PHP_URL_QUERY), $query);
 
             return $query['submenuIndex'] ?? 0;
         }
 
-        return $query->getInt('submenuIndex');
+        return 0;
     }
 }
